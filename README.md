@@ -2,7 +2,7 @@
 
 A flexible memory hard key derivation function without unnecessary overhead
 
-Tags: fast memory hard function, password hashing, memory hard key stretching, memory hard key strengthening, scrypt, bcrypt, sequential memory hard function
+Tags: fast memory hard function, password hashing, memory hard key stretching, memory hard key strengthening, scrypt, bcrypt, sequential memory hard function, kdf.
 
 <b>Introduction</b>
 
