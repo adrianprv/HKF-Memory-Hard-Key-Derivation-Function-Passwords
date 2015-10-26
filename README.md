@@ -23,7 +23,7 @@ There are several known such key stretching functions, like scrypt, I tried to c
 There are 3 simple parts, obvious in source code too:
 
 1. Fast memory pool generation<br>
-The memory is generated progressively, row after row, so any further access involves recalculations. The generator starts with a cryptographic safe pseudorandom buffer and adds low entroy difussion, the speed is more important at this stage.
+The memory is generated progressively, row after row, so any further redesign involves recalculations. The generator starts with a cryptographic safe pseudorandom buffer and adds low entroy difussion, the speed is more important at this stage.
 
 2. Stir the memory pool<br>
 This will mitigate the risk of algorithm redesign to use less memory, since random access involve far more recalculations.
@@ -34,3 +34,14 @@ The final hash is obtained by combining the result with the output of a stream c
 Currently, on a single core of a first generation i7 a 256 bytes hash requires 1Gb of memory and one million rounds.
 The beauty of this design is that any stream cipher can be used also any step can be configurated or improved.
 
+<b>Usage</b>
+voi GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output)
+
+IN: 
+- password, up to 256 bytes
+- salt, any size, choose something decent like 64 byte, for example
+- megabytes, desired memory usage, in megabytes,
+- rounds - round trips to memory 
+choose the last two depending on how much time you can afford to compute the password hash
+
+OUT: 256bytes hash (output), you can use it all, part of it, or hash it further with some fast hash like SHA512 to make it smaller.
