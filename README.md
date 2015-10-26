@@ -42,7 +42,9 @@ IN:
 - password, up to 256 bytes
 - salt, any size, choose something decent like 64 byte, for example
 - megabytes, desired memory usage, in megabytes,
-- rounds - round trips to memory 
-choose the last two depending on how much time you can afford to compute the password hash
+- rounds - round trips to memory <br>
+(choose the last two depending on how much time you can afford to compute the password hash)
 
-OUT: 256bytes hash (output), you can use it all, part of it, or hash it further with some fast hash like SHA512 to make it smaller.
+OUT:
+- 256bytes hash (output), you can use it all, part of it, or hash it further with some fast hash like SHA512 to make it smaller.
+
