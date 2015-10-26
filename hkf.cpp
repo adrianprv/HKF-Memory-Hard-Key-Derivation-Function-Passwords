@@ -3,18 +3,22 @@
 // Adrian Pirvu - October 14, 2015
 //
 // A memory hard key derivation function without overhead
-// INPUT: password - up to 256 bytes; salt - no limitation;  megabytes: memory you intend to use; rounds: memory pickup rounds;
+// INPUT: password - up to 256 bytes; salt - no limitation;  
+// megabytes: memory you intend to use; rounds: memory pickup rounds;
 // OUTPUT: stretched key (current 256 bytes)
 // 3.7 seconds with 1Gb of memory and 1 million rounds on single core of a first generation i7 CPU (release)
-// IMPORTANT: No cycles wasted to generate memory difussion, the diffusion is obtained in the end, during memory round trips calculations
-// The random access in the end makes possible usage of ANY amount of memory, redesign avoided through the random mix of the memory box
+// IMPORTANT: No cycles wasted to generate memory difussion, the diffusion is obtained in the end, 
+ // during memory round trips calculations
+// The random access in the end makes possible usage of ANY amount of memory, 
+// redesign avoided through the random mix of the memory box
 // In the end I ensure that the output is random, ireversible and non-biased by mixing with a stream cipher output
 // Basically we have a FillMemory(), StirMemory() PickRandom() flow
-// Tweaked Arc4 used as a one way random generator, but any stream cipher can be used (ex Spritz)
-// No side attacks considered, if the attacker has access to your RAM then an activity tracking RAT already took your password or screenshots of your mouse clicks
-// Tags: fast memory hard function, password hashing, memory hard key stretching, memory hard key strengthening, scrypt, bcrypt, sequential memory hard function
-// Looking for feedback and some possible GPUs cluster tests. If anyone is interested in further development or a possible public project, please let me know.
- 
+// Tweaked Arc4 used as a one way random generator, but any stream cipher can be used (ex Spritz, Salsa20, Chacha)
+// No side attacks considered, if the attacker has access to your RAM 
+// then an activity tracking RAT already took your password or screenshots of your mouse clicks
+// Tags: fast memory hard function, password hashing, memory hard key stretching, 
+// memory hard key strengthening, scrypt, bcrypt, sequential memory hard function
+
 
 
 #include "stdafx.h"
@@ -35,12 +39,11 @@ extern "C"
 	__declspec(dllexport) void GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output);
 
 
-
 	
 	//unsigned int TEST_MEGABYTES = 1024;
 	//unsigned int TEST_ROUNDS = 1000000;
 
-	//// main function, for test
+	//// main function, for test purpose
 	//int main(int argc, char * argv[])
 	//{
 	//	const char* password = "monkey";
