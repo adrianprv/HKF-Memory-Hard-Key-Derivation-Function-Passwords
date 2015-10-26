@@ -8,7 +8,7 @@
 // OUTPUT: stretched key (current 256 bytes)
 // 3.7 seconds with 1Gb of memory and 1 million rounds on single core of a first generation i7 CPU (release)
 // IMPORTANT: No cycles wasted to generate memory difussion, the diffusion is obtained in the end, 
- // during memory round trips calculations
+// during memory round trips calculations
 // The random access in the end makes possible usage of ANY amount of memory, 
 // redesign avoided through the random mix of the memory box
 // In the end I ensure that the output is random, ireversible and non-biased by mixing with a stream cipher output
