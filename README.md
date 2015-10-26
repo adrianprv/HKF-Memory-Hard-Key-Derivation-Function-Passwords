@@ -22,13 +22,13 @@ There are several known such key stretching functions, like scrypt, I tried to c
 
 There are 3 simple parts, obvious in source code too:
 
-1. Fast memory pool generation
+1. Fast memory pool generation<br>
 The memory is generated progressively, row after row, so any further access involves recalculations. The generator starts with a cryptographic safe pseudorandom buffer and adds low entroy difussion, the speed is more important at this stage.
 
-2. Stir the memory pool
+2. Stir the memory pool<br>
 This will mitigate the risk of algorithm redesign to use less memory, since random access involve far more recalculations.
 
-3. Mix the final key with random values from the memory pool.
+3. Mix the final key with random values from the memory pool.<br>
 The final hash is obtained by combining the result with the output of a stream cipher, so its basically a strong encryption.
 
 Currently, on a single core of a first generation i7 a 256 bytes hash requires 1Gb of memory and one million rounds.
