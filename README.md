@@ -1,4 +1,4 @@
-# HKF-Memory-Hard-Password-Key-Derivation-Function
+# HKF- A Memory Hard Password Key Derivation Function
 
 A flexible memory hard key derivation function without unnecessary overhead
 
@@ -20,16 +20,16 @@ There are several known such key stretching functions, like scrypt, I tried to c
 
 <b>HKF Design</b>
 
-There are 3 simple parts:
+There are 3 simple parts, obvious in source code too:
 
-1. Generates fast memory difussion
-I ensure the memory is generated progressively, row after row, so any further access involves recalculations. It all starts with a cryptographic safe pseudorandom buffer.
+1. Fast memory pool generation
+The memory is generated progressively, row after row, so any further access involves recalculations. The generator starts with a cryptographic safe pseudorandom buffer and adds low entroy, the speed is more important at this stage.
 
-2. Stir the memory box
-This will mitigate algorithm redesign to use less memory, since random access involve far more recomputating cycles.
+2. Stir the memory pool
+This will mitigate the risk of algorithm redesign to use less memory, since random access involve far more recalculations.
 
-3. Random mix key with values from the memory box.
-The final hash is obtained by combining the result with the output of a stream cipher.
+3. Mix the final key with random values from the memory pool.
+The final hash is obtained by combining the result with the output of a stream cipher, so its basically a strong encryption.
 
 Currently, on a single core of a first generation i7 a 256 bytes hash requires 1Gb of memory and one million rounds.
 The beauty of this design is that any stream cipher can be used also any step can be configurated or improved.
