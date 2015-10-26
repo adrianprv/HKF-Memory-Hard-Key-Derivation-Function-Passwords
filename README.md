@@ -35,7 +35,8 @@ Currently, on a single core of a first generation i7 a 256 bytes hash requires 1
 The beauty of this design is that any stream cipher can be used also any step can be configurated or improved.
 
 <b>Usage</b>
-voi GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output)
+
+void GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output)
 
 IN: 
 - password, up to 256 bytes
