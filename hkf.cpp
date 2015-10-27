@@ -85,7 +85,7 @@ extern "C"
 
 		//clock_t start = clock();
 
-		// fills the memory fast, with a bit of diffusion (we really don't need much)
+		// fills the memory fast
 		unsigned int random = key[34] * key[56] + key[62];
 		for (int row = 1; row < ROWS; row++)
 		{
@@ -102,13 +102,13 @@ extern "C"
 			}
 		}
 
-		// stir the memory box (one time for the moment but possible multiple and char align)
+		// stir the memory box (one time but possible severral times and aligned to char)
 		for (int row = 1; row < ROWS; row++)
 		{
 			int newRow = box[row * COLUMNS + 37] % ROWS; // get a random row
 			int index1 = box[row * COLUMNS + 31] % 64;   // and two random indexes
 			int index2 = box[row * COLUMNS + 46] % 64;   
-			tmp = box[row * COLUMNS + index1];  // and switch values
+			tmp = box[row * COLUMNS + index1];  // then switch values
 			box[row * COLUMNS + index1] = box[newRow * COLUMNS + index2];
 			box[newRow * COLUMNS + index2] = tmp;
 		}
@@ -173,7 +173,6 @@ extern "C"
 		}
 		i = i = 0;
 
-		// should overwrite memory
 		delete[] box;
 	}
 
