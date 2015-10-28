@@ -12,7 +12,7 @@
 // The random access in the end makes possible usage of ANY amount of memory, 
 // redesign avoided through the random mix of the memory box
 // In the end I ensure that the output is random, ireversible and non-biased by mixing with a stream cipher output
-// Basically we have a FillMemory(), StirMemory() PickRandom() flow
+// Basically we have a FillMemory(), ScrambleMemory() PickRandom() flow
 // Tweaked Arc4 used as a one way random generator, but any stream cipher can be used (ex Spritz, Salsa20, Chacha)
 // No side attacks considered, if the attacker has access to your RAM 
 // then an activity tracking RAT already took your password or screenshots of your mouse clicks
@@ -102,7 +102,7 @@ extern "C"
 			}
 		}
 
-		// stir the memory box (one time but possible severral times and aligned to char)
+		// scramble the memory box (one time but possible severral times and aligned to char)
 		for (int row = 1; row < ROWS; row++)
 		{
 			int newRow = box[row * COLUMNS + 37] % ROWS; // get a random row
