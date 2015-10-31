@@ -36,7 +36,11 @@ extern "C"
 	void RngInit(unsigned char* key, int keyLength, unsigned char* salt, int saltLength);
 	unsigned char RngNextByte();
 	unsigned int RngNextInt();
-	__declspec(dllexport) void GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output);
+	__declspec(dllexport) void GetHashKey(
+		unsigned char* password, int passwordLength, 
+		unsigned char* salt, int saltLength, 
+		int megabytes, int rounds, 
+		unsigned char* output);
 
 
 
@@ -60,7 +64,11 @@ extern "C"
 
 
 	// return a hashable strengthen key of desired length from password and salt
-	__declspec(dllexport) void GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output)
+	__declspec(dllexport) void GetHashKey(
+		unsigned char* password, int passwordLength, 
+		unsigned char* salt, int saltLength, 
+		int megabytes, int rounds, 
+		unsigned char* output)
 	{
 		// dinamically allocates memory 4 * 1024 * megabytes
 		int ROWS = 4 * 1024 * megabytes; // each row is 256 bytes (256 * 4 * 1024 = 1k * 1024 = 1M)
@@ -173,7 +181,7 @@ extern "C"
 			s[col] = 0;
 			k[col] = 0;
 		}
-		i = i = 0;
+		i = j = 0;
 
 		// should overwrite memory
 		delete[] box;
