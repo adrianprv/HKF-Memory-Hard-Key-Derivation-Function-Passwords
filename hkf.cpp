@@ -6,7 +6,7 @@
 // INPUT: password - up to 256 bytes; salt - no limitation;  
 // megabytes: memory you intend to use; rounds: memory pickup rounds;
 // OUTPUT: stretched key (current 256 bytes)
-// 3.7 seconds with 1Gb of memory and 1 million rounds on single core of a first generation i7 CPU (release)
+// 4.1 seconds with 1Gb of memory and 1 million rounds on single core of a first generation i7 CPU (release)
 // IMPORTANT: No cycles wasted to generate memory difussion, the diffusion is obtained in the end, 
 // during memory round trips calculations
 // The random access in the end makes possible usage of ANY amount of memory, 
