@@ -1,5 +1,5 @@
 
-// HKF - Memory Hard Key Derivation Function v 1.5
+// HKF - Memory Hard Key Derivation Function v 1.6
 // Adrian Pirvu - October 14, 2015
 //
 // A memory hard key derivation function without overhead
@@ -39,11 +39,12 @@ extern "C"
 	__declspec(dllexport) void GetHashKey(unsigned char* password, int passwordLength, unsigned char* salt, int saltLength, int megabytes, int rounds, unsigned char* output);
 
 
+
 	
 	//unsigned int TEST_MEGABYTES = 1024;
 	//unsigned int TEST_ROUNDS = 1000000;
 
-	//// main function, for test purpose
+	//// main function, for test
 	//int main(int argc, char * argv[])
 	//{
 	//	const char* password = "monkey";
@@ -66,6 +67,7 @@ extern "C"
 		int COLUMNS = 64; // * 4 bytes per int = 256 bytes
 		unsigned int* box = new unsigned int[ROWS * COLUMNS];
 		unsigned int tmp = 0;
+		unsigned char tmpmem[96];
 
 		// init the random engine and get a temporary key
 		RngInit(password, passwordLength, salt, saltLength);
@@ -85,7 +87,7 @@ extern "C"
 
 		//clock_t start = clock();
 
-		// fills the memory fast
+		// fills the memory fast, with a bit of diffusion (we really don't need much)
 		unsigned int random = key[34] * key[56] + key[62];
 		for (int row = 1; row < ROWS; row++)
 		{
@@ -102,15 +104,15 @@ extern "C"
 			}
 		}
 
-		// scramble the memory box (one time but possible severral times and aligned to char)
+		// scramble the memory box (multiple rounds possible)
 		for (int row = 1; row < ROWS; row++)
 		{
 			int newRow = box[row * COLUMNS + 37] % ROWS; // get a random row
-			int index1 = box[row * COLUMNS + 31] % 64;   // and two random indexes
-			int index2 = box[row * COLUMNS + 46] % 64;   
-			tmp = box[row * COLUMNS + index1];  // then switch values
-			box[row * COLUMNS + index1] = box[newRow * COLUMNS + index2];
-			box[newRow * COLUMNS + index2] = tmp;
+			int index1 = box[row * COLUMNS + 31] % 160;   // and two random indexes
+			int index2 = box[row * COLUMNS + 46] % 160;   
+			memcpy(tmpmem, (unsigned char*) &box[row * COLUMNS] + index1, 96); // and switch memory there
+			memcpy((unsigned char*) &box[row * COLUMNS] + index1, (unsigned char*) &box[newRow * COLUMNS] + index2, 96);
+			memcpy((unsigned char*) &box[newRow * COLUMNS] + index2, tmpmem, 96);
 		}
 
 		// start with the last row to avoid precalculations and algo redesign
@@ -173,6 +175,7 @@ extern "C"
 		}
 		i = i = 0;
 
+		// should overwrite memory
 		delete[] box;
 	}
 
@@ -248,6 +251,3 @@ extern "C"
 
 
 }
-
-
-
