@@ -31,8 +31,8 @@ Swap bytes from  random rows, each row is affected. This will mitigate the risk 
 3. Mix the final key with random values from the memory pool.<br>
 The final hash is obtained by combining the result with the output of a stream cipher, which basically is an ireversible strong encryption.
 
-The beauty of this design is that any stream cipher can be used also any step can be configurated.
-In current version, on a single core of a first generation i7, a 256 bytes hash requires 3.5 seconds with 1Gb of memory and one million rounds.
+The advantage of this design is that any stream cipher can be used also any step can be adjusted.
+On a single core of a first generation i7, 4 seconds of hash comes at a cost of 1Gb of memory and one million pickup rounds.
 
 
 <b>Usage</b>
