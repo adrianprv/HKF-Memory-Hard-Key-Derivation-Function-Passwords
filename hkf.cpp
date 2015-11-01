@@ -96,7 +96,7 @@ extern "C"
 		//clock_t start = clock();
 
 		// fills the memory fast, with a bit of diffusion (we really don't need much)
-		unsigned int random = key[34] * key[56] + key[62];
+		unsigned int random = RngNextInt();
 		for (int row = 1; row < ROWS; row++)
 		{
 			// breaks the row random and switch parts
@@ -115,9 +115,9 @@ extern "C"
 		// scramble the memory box (multiple rounds possible)
 		for (int row = 1; row < ROWS; row++)
 		{
-			int newRow = box[row * COLUMNS + 37] % ROWS; // get a random row
-			int index1 = box[row * COLUMNS + 31] % 160;   // and two random indexes
-			int index2 = box[row * COLUMNS + 46] % 160;   
+			int newRow = box[row * COLUMNS + 20] % ROWS; // get a random row
+			int index1 = box[row * COLUMNS + 41] % 160;   // and two random indexes
+			int index2 = box[row * COLUMNS + 52] % 160;   
 			memcpy(tmpmem, (unsigned char*) &box[row * COLUMNS] + index1, 96); // and switch memory there
 			memcpy((unsigned char*) &box[row * COLUMNS] + index1, (unsigned char*) &box[newRow * COLUMNS] + index2, 96);
 			memcpy((unsigned char*) &box[newRow * COLUMNS] + index2, tmpmem, 96);
